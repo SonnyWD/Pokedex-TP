@@ -12,6 +12,11 @@
           {{ type }}
         </span>
       </div>
+      <div class="abilities">
+        <span v-for="ability in abilities" :key="ability" class="ability-badge">
+          {{ ability}}
+        </span>
+      </div>
     </div>
   </template>
   
@@ -28,6 +33,10 @@
       required: true
     },
     types: {
+      type: Array,
+      default: () => []
+    },
+    abilities: {
       type: Array,
       default: () => []
     }
@@ -91,4 +100,19 @@
     text-transform: capitalize;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
+  .abilities {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ability-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  background-color: #f0f0f0;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
   </style>

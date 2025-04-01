@@ -56,7 +56,7 @@ watch(filteredPokemons, (newValue) => {
 .search-container {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
 }
 
 .search-input {

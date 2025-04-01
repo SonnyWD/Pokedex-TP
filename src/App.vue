@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h1 class="title">Pokédex</h1>
     <div class="controls">
       <SearchBar 
         :pokemons="results" 
@@ -33,8 +34,14 @@
         :image="pokemon.image"
         :types="pokemon.types"
         :abilities="pokemon.abilities"
+        @click="() => openModal(pokemon)" 
       />
     </div>
+    <PokemonModal 
+      :show="showModal"
+      :pokemon="selectedPokemon"
+      @close="closeModal"
+    />
   </main>
 </template>
 
@@ -44,6 +51,7 @@ import { ref, onMounted } from 'vue'
 import SearchBar from './components/searchBar.vue'
 import SortByName from './components/sortByName.vue'
 import sortByTypes from './components/sortByTypes.vue'
+import PokemonModal from './components/pokemonModal.vue'
 
 const results = ref([])
 const loading = ref(true)
@@ -51,6 +59,19 @@ const filteredResults = ref([])
 const offset = ref(0)
 const limit = 100
 const loadMoreLimit = 5
+const showModal = ref(false)
+const selectedPokemon = ref(null)
+
+const openModal = (pokemon) => {
+  console.log("pokemon reçu:", pokemon)
+  selectedPokemon.value = pokemon
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+  selectedPokemon.value = null
+}
 
 const fetchPokemons = async () => {
   try {
@@ -81,6 +102,7 @@ const fetchPokemons = async () => {
     loading.value = false
   }
 }
+
 const loadMore = () => {
   fetchPokemons()
 }
@@ -96,6 +118,15 @@ main {
   justify-content: center;
   flex-direction: column;
   padding: 20px;
+}
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .pokemon-grid {

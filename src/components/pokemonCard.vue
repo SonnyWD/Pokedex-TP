@@ -1,5 +1,5 @@
 <template>
-    <div class="pokemon-card">
+    <div class="pokemon-card" @click="$emit('click', {name, image, types, abilities})">
       <h2>{{ name }}</h2>
       <img :src="image" :alt="name" class="pokemon-image"/>
       <div class="types">

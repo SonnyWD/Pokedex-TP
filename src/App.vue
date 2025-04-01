@@ -88,7 +88,11 @@ const fetchPokemons = async () => {
           name: pokemon.name,
           image: details.sprites.front_default,
           types: details.types.map(type => type.type.name),
-          abilities: details.abilities.map(ability => ability.ability.name)
+          abilities: details.abilities.map(ability => ability.ability.name),
+          stats: details.stats.map(stat => ({
+            name: stat.stat.name,
+            value: stat.base_stat
+          }))
         }
       })
     )

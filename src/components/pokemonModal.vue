@@ -32,6 +32,13 @@
               {{ ability }}
             </span>
           </div>
+          <button 
+          class="add-button" 
+          @click="addToPokedex"
+          :disabled="isInPokedex"
+        >
+          {{ isInPokedex ? 'Déjà dans le Pokédex' : 'Ajouter au Pokédex' }}
+        </button>
         </div>
       </div>
     </div>
@@ -39,18 +46,26 @@
   
   <script setup>
   const props = defineProps({
-    show: {
-      type: Boolean,
-      default: false
-    },
-    pokemon: {
-      type: Object,
-      default: () => ({})
-    }
-  })
+  show: {
+    type: Boolean,
+    default: false
+  },
+  pokemon: {
+    type: Object,
+    default: () => ({})
+  },
+  isInPokedex: {
+    type: Boolean,
+    default: false
+  }
+})
   
-  const emit = defineEmits(['close'])
-  
+  const emit = defineEmits(['close', 'addToPokedex'])
+  const addToPokedex = () => {
+  if (!props.isInPokedex) {
+    emit('addToPokedex', props.pokemon)
+  }
+}
   const closeModal = () => {
     emit('close')
   }
@@ -76,7 +91,7 @@
     fairy: "#EE99AC"
   }
 
-  import { watch } from 'vue'
+  import { ref, computed, watch } from 'vue'
 
 watch(() => props.pokemon, (newPokemon) => {
   console.log("Données reçues par le modal :", newPokemon)
@@ -101,7 +116,7 @@ watch(() => props.show, (newShow) => {
   }
   
   .modal-content {
-    background: white;
+    background: #2a2a2a; 
     padding: 2rem;
     border-radius: 12px;
     max-width: 500px;
@@ -109,6 +124,8 @@ watch(() => props.show, (newShow) => {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    color: white; 
+    border: 2px solid #dc2626;
   }
   
   .modal-close {
@@ -119,6 +136,7 @@ watch(() => props.show, (newShow) => {
     background: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: #dc2626; 
   }
   
   .pokemon-details {
@@ -145,7 +163,7 @@ watch(() => props.show, (newShow) => {
     justify-content: space-between;
     margin: 0.5rem 0;
     padding: 0.5rem;
-    background: #f5f5f5;
+    background: #3a3a3a;
     border-radius: 4px;
   }
   
@@ -164,7 +182,30 @@ watch(() => props.show, (newShow) => {
     display: inline-block;
     padding: 0.25rem 0.75rem;
     margin: 0.25rem;
-    background: #f0f0f0;
+    background: #3a3a3a;
     border-radius: 16px;
+    color: #dc2626; 
+    border: 1px solid #dc2626;
   }
+
+  .add-button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #dc2626;
+}
+
+.add-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
   </style>

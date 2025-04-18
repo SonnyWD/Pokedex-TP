@@ -65,54 +65,74 @@
   </script>
   
   <style scoped>
-  .pokemon-card {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin: 0.5rem;
-    border-radius: 8px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  
-  .pokemon-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .pokemon-image {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-  }
-  
-  .types {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
-  
-  .type-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 16px;
-    color: white;
-    font-size: 0.9rem;
-    text-transform: capitalize;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
-  .abilities {
+.pokemon-card {
+  background-color: #2a2a2a;
+  border: 2px solid #dc2626;
+  padding: 1.5rem;
+  margin: 0.5rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(255, 0, 0, 0.2);
+  border-color: #b91c1c;
+}
+
+.pokemon-card h2 {
+  color: #dc2626;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.pokemon-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  background-color: #333;
+  border-radius: 50%;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.types {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+}
+
+.type-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  color: white;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.abilities {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
   flex-wrap: wrap;
 }
 
 .ability-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 16px;
-  background-color: #f0f0f0;
+  background-color: #333;
+  color: #dc2626; 
   font-size: 0.8rem;
   text-transform: capitalize;
+  border: 1px solid #dc2626;
 }
-  </style>
+</style>

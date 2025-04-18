@@ -40,7 +40,9 @@
     <PokemonModal 
       :show="showModal"
       :pokemon="selectedPokemon"
+      :isInPokedex="isPokemonInPokedex(selectedPokemon)"
       @close="closeModal"
+      @add-to-pokedex="handleAddToPokedex"
     />
   </main>
 </template>
@@ -61,11 +63,23 @@ const limit = 100
 const loadMoreLimit = 5
 const showModal = ref(false)
 const selectedPokemon = ref(null)
+const myPokedex = ref([])
 
 const openModal = (pokemon) => {
-  console.log("pokemon reçu:", pokemon)
   selectedPokemon.value = pokemon
   showModal.value = true
+}
+
+const isPokemonInPokedex = (pokemon) => {
+  if (!pokemon) return false
+  return myPokedex.value.some(p => p.name === pokemon.name)
+}
+
+const handleAddToPokedex = (pokemon) => {
+  if (!isPokemonInPokedex(pokemon)) {
+    myPokedex.value.push(pokemon)
+    localStorage.setItem('myPokedex', JSON.stringify(myPokedex.value))
+  }
 }
 
 const closeModal = () => {
@@ -112,6 +126,10 @@ const loadMore = () => {
 }
 
 onMounted(() => {
+  const savedPokedex = localStorage.getItem('myPokedex')
+  if (savedPokedex) {
+    myPokedex.value = JSON.parse(savedPokedex)
+  }
   fetchPokemons()
 })
 </script>
@@ -122,15 +140,19 @@ main {
   justify-content: center;
   flex-direction: column;
   padding: 20px;
+  background-color: #1a1a1a;
+  min-height: 100vh;
 }
+
 .title {
   text-align: center;
   font-size: 3rem;
-  color: #2c3e50;
+  color: #dc2626; 
   margin-bottom: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .pokemon-grid {
@@ -139,18 +161,17 @@ main {
   gap: 2rem;
   max-width: 1400px;
   width: 100%;
+  margin: 0 auto;
 }
 
-.loading {
-  text-align: center;
-  font-size: 1.5rem;
-  padding: 2rem;
-}
 .controls {
   display: flex;
   gap: 1rem;
   align-items: center;
   margin-bottom: 2rem;
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .load-more {
@@ -162,20 +183,21 @@ main {
 .load-more-button {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  background-color: #4a90e2;
+  background-color: #dc2626;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .load-more-button:hover {
-  background-color: #357abd;
+  background-color: #b91c1c;
 }
 
 .load-more-button:disabled {
-  background-color: #ccc;
+  background-color: #666;
   cursor: not-allowed;
 }
 </style>
